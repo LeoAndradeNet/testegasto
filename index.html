@@ -873,10 +873,11 @@
 
       if (!validarLinkNota(link)) {
         mostrarStatus(
-          "O QR Code foi lido, mas não contém um link de NFC-e " +
-          "da Fazenda de São Paulo. Verifique o código.",
+          "QR Code lido, mas rejeitado pela validação. " +
+          "Conteúdo recebido: " + JSON.stringify(link),
           "aviso"
         );
+        console.log("QR CODE ORIGINAL:", link);
         return;
       }
 
