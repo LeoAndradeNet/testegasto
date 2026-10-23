@@ -1,1219 +1,435 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport"
-        content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#173b64">
   <title>Minhas Notinhas</title>
-
   <style>
-    :root {
-      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
-      color: #172b41;
-      background: #f3f6fa;
-      font-size: 17px;
-    }
-
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-    }
-
-    .topo {
-      background: #173b64;
-      color: white;
-      padding: 24px 20px 28px;
-      border-radius: 0 0 24px 24px;
-    }
-
-    .topo-conteudo {
-      max-width: 540px;
-      margin: auto;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-    }
-
-    h1 {
-      margin: 0;
-      font-size: 27px;
-      letter-spacing: -.6px;
-    }
-
-    .subtitulo {
-      margin: 6px 0 0;
-      font-size: 14px;
-      opacity: .85;
-    }
-
-    main {
-      max-width: 540px;
-      margin: auto;
-      padding: 20px 15px 50px;
-    }
-
-    .card {
-      background: white;
-      border-radius: 20px;
-      padding: 20px;
-      margin-bottom: 16px;
-      box-shadow: 0 3px 15px rgba(0,0,0,.045);
-    }
-
-    h2 {
-      font-size: 19px;
-      margin: 0 0 15px;
-    }
-
-    p {
-      line-height: 1.5;
-    }
-
-    button, input, select {
-      font: inherit;
-    }
-
-    button {
-      cursor: pointer;
-      border: 0;
-      font-weight: 700;
-      border-radius: 13px;
-    }
-
-    button:disabled {
-      cursor: not-allowed;
-      opacity: .55;
-    }
-
-    .botao-principal {
-      width: 100%;
-      min-height: 67px;
-      background: #1768cb;
-      color: white;
-      font-size: 22px;
-      padding: 14px;
-    }
-
-    .botao-principal:active {
-      background: #104c99;
-    }
-
-    .botao-secundario {
-      background: #e7eef7;
-      color: #173b64;
-      min-height: 52px;
-      padding: 12px 18px;
-      font-size: 17px;
-    }
-
-    .botao-pequeno {
-      background: rgba(255,255,255,.14);
-      color: white;
-      border: 1px solid rgba(255,255,255,.3);
-      padding: 9px 12px;
-      font-size: 12px;
-      white-space: nowrap;
-    }
-
-    .botao-lancar {
-      background: #173b64;
-      color: white;
-      padding: 0 20px;
-      min-height: 55px;
-      font-size: 17px;
-    }
-
-    label {
-      display: block;
-      font-size: 15px;
-      font-weight: 650;
-      margin-bottom: 9px;
-    }
-
-    input, select {
-      width: 100%;
-      border: 2px solid #d9e2ed;
-      border-radius: 12px;
-      min-height: 55px;
-      padding: 12px;
-      background: white;
-      color: #172b41;
-      font-size: 16px;
-    }
-
-    input:focus, select:focus {
-      outline: 2px solid #80b8ff;
-      border-color: #1768cb;
-    }
-
-    .linha {
-      display: flex;
-      gap: 9px;
-      align-items: stretch;
-    }
-
-    .linha input {
-      min-width: 0;
-      flex: 1;
-    }
-
-    .dica {
-      text-align: center;
-      font-size: 14px;
-      color: #65788e;
-      margin: 12px 0 0;
-    }
-
-    #areaCamera {
-      margin-top: 16px;
-      display: none;
-    }
-
-    #reader {
-      width: 100%;
-      overflow: hidden;
-      background: #101923;
-      border-radius: 15px;
-      min-height: 240px;
-    }
-
-    #reader video {
-      width: 100% !important;
-      object-fit: cover;
-    }
-
-    .acoes-camera {
-      margin-top: 12px;
-      text-align: center;
-    }
-
-    #status {
-      display: none;
-      margin-bottom: 16px;
-      padding: 15px;
-      border-radius: 13px;
-      font-weight: 600;
-      font-size: 16px;
-      line-height: 1.5;
-      overflow-wrap: anywhere;
-    }
-
-    #status.info {
-      display: block;
-      background: #e4f0ff;
-      color: #194878;
-    }
-
-    #status.sucesso {
-      display: block;
-      background: #e4f5ea;
-      color: #186337;
-    }
-
-    #status.aviso {
-      display: block;
-      background: #fff2d9;
-      color: #855300;
-    }
-
-    #status.erro {
-      display: block;
-      background: #ffebeb;
-      color: #962b2b;
-    }
-
-    .carregando {
-      display: inline-block;
-      width: 18px;
-      height: 18px;
-      border: 3px solid #9ebede;
-      border-top-color: #1768cb;
-      border-radius: 50%;
-      animation: girar .8s linear infinite;
-      vertical-align: middle;
-      margin-right: 8px;
-    }
-
-    @keyframes girar {
-      to { transform: rotate(360deg); }
-    }
-
-    .oculto {
-      display: none !important;
-    }
-
-    .nome-loja {
-      font-size: 22px;
-      font-weight: 750;
-      overflow-wrap: anywhere;
-      margin-bottom: 6px;
-    }
-
-    .data-compra {
-      color: #65788e;
-      font-size: 15px;
-    }
-
-    .total-destaque {
-      background: #f0f6fd;
-      border-radius: 15px;
-      padding: 17px;
-      margin: 18px 0;
-    }
-
-    .total-rotulo {
-      font-size: 14px;
-      color: #576e87;
-    }
-
-    .total-valor {
-      font-size: 35px;
-      font-weight: 800;
-      color: #1768cb;
-      margin-top: 4px;
-    }
-
-    .item {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      padding: 14px 0;
-      border-bottom: 1px solid #e8edf3;
-    }
-
-    .item:last-child {
-      border-bottom: 0;
-    }
-
-    .item-descricao {
-      font-size: 16px;
-      font-weight: 650;
-      overflow-wrap: anywhere;
-    }
-
-    .item-detalhe {
-      font-size: 14px;
-      color: #67798a;
-      margin-top: 5px;
-    }
-
-    .item-total {
-      font-weight: 700;
-      white-space: nowrap;
-      font-size: 16px;
-    }
-
-    .categoria-area {
-      margin-top: 20px;
-    }
-
-    #statusCategoria {
-      font-size: 14px;
-      margin-top: 9px;
-      min-height: 20px;
-    }
-
-    .modal {
-      position: fixed;
-      inset: 0;
-      z-index: 100;
-      background: rgba(11,25,42,.8);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-    }
-
-    .modal-conteudo {
-      background: white;
-      border-radius: 20px;
-      width: 100%;
-      max-width: 420px;
-      padding: 26px;
-    }
-
-    .modal-conteudo h2 {
-      font-size: 24px;
-    }
-
-    .modal-conteudo p {
-      color: #586b7e;
-      font-size: 15px;
-    }
-
-    .modal-conteudo input {
-      margin-bottom: 14px;
-    }
-
-    .modal-erro {
-      min-height: 20px;
-      color: #b12929;
-      font-size: 14px;
-      margin-bottom: 8px;
-    }
-
-    @media (max-width: 370px) {
-      .card { padding: 15px; }
-      h1 { font-size: 23px; }
-      .botao-principal { font-size: 19px; }
-      .botao-lancar { padding: 0 13px; }
-    }
+    :root { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; color:#162b40; background:#f3f6fa; font-size:17px; }
+    * { box-sizing:border-box; }
+    body { margin:0; min-height:100vh; }
+    header { background:#173b64; color:white; padding:23px 18px 27px; border-radius:0 0 24px 24px; }
+    .header-inner { max-width:540px; margin:auto; display:flex; justify-content:space-between; align-items:center; gap:12px; }
+    h1 { margin:0; font-size:27px; }
+    header p { margin:4px 0 0; opacity:.85; font-size:14px; }
+    main { max-width:540px; padding:18px 14px 48px; margin:auto; }
+    .card { background:#fff; border-radius:19px; padding:19px; margin-bottom:15px; box-shadow:0 3px 14px rgba(0,0,0,.05); }
+    h2 { font-size:19px; margin:0 0 15px; }
+    button, input, select { font:inherit; }
+    button { border:0; border-radius:13px; font-weight:700; cursor:pointer; }
+    button:disabled { opacity:.55; cursor:not-allowed; }
+    .primary { width:100%; background:#1768cb; color:#fff; padding:17px; min-height:65px; font-size:21px; }
+    .secondary { background:#e7eef7; color:#173b64; padding:13px 17px; min-height:51px; }
+    .small { color:#fff; background:#ffffff22; border:1px solid #ffffff55; padding:9px 12px; white-space:nowrap; font-size:12px; }
+    .submit { background:#173b64; color:white; min-height:56px; padding:0 18px; }
+    .hint { color:#687a8a; text-align:center; font-size:14px; line-height:1.5; }
+    label { display:block; font-size:15px; font-weight:650; margin-bottom:9px; }
+    input, select { width:100%; min-height:55px; border:2px solid #d9e2ed; border-radius:12px; padding:11px; background:white; color:#162b40; font-size:16px; }
+    input:focus, select:focus { outline:2px solid #a1c9ff; border-color:#1768cb; }
+    .inline { display:flex; gap:9px; }
+    .inline input { min-width:0; flex:1; }
+    #cameraArea { display:none; margin-top:17px; }
+    #reader { width:100%; min-height:230px; border-radius:15px; background:#121e29; overflow:hidden; }
+    #reader video { width:100%!important; object-fit:cover; }
+    .camera-actions { text-align:center; margin-top:12px; }
+    #status { display:none; margin-bottom:15px; padding:15px; border-radius:13px; line-height:1.5; font-weight:600; overflow-wrap:anywhere; }
+    #status.info { display:block; background:#e4f0ff; color:#194878; }
+    #status.success { display:block; background:#e2f4e9; color:#176137; }
+    #status.warning { display:block; background:#fff1d8; color:#785000; }
+    #status.error { display:block; background:#ffebeb; color:#952626; }
+    .hidden { display:none!important; }
+    .shop { font-size:22px; font-weight:750; overflow-wrap:anywhere; }
+    .date { color:#65788e; font-size:15px; margin-top:5px; }
+    .total-box { margin:19px 0; padding:18px; border-radius:15px; background:#f0f6fd; }
+    .total-box span { color:#576e87; font-size:14px; }
+    .total-box strong { display:block; color:#1768cb; font-size:34px; margin-top:4px; }
+    .item { display:flex; justify-content:space-between; gap:12px; padding:13px 0; border-bottom:1px solid #e8edf3; }
+    .item:last-child { border:0; }
+    .item-name { font-size:16px; font-weight:650; overflow-wrap:anywhere; }
+    .item-detail { color:#67798a; font-size:14px; margin-top:5px; }
+    .item-total { font-size:16px; font-weight:700; white-space:nowrap; }
+    #categoryStatus { font-size:14px; min-height:20px; margin-top:9px; }
+    .modal { position:fixed; inset:0; z-index:50; background:#091929d9; display:flex; align-items:center; justify-content:center; padding:20px; }
+    .modal-box { background:#fff; width:100%; max-width:420px; padding:25px; border-radius:20px; }
+    .modal-box h2 { font-size:24px; }
+    .modal-box p { font-size:15px; color:#586b7e; line-height:1.5; }
+    .modal-box input { margin-bottom:10px; }
+    #passwordError { color:#a52929; font-size:14px; margin:0 0 10px; min-height:18px; }
   </style>
 </head>
-
 <body>
-
-  <header class="topo">
-    <div class="topo-conteudo">
-      <div>
-        <h1>🧾 Minhas Notinhas</h1>
-        <p class="subtitulo">Seu controle de compras</p>
-      </div>
-
-      <button id="btnTrocarSenha"
-              class="botao-pequeno"
-              type="button">
-        Trocar senha
-      </button>
+  <header>
+    <div class="header-inner">
+      <div><h1>🧾 Minhas Notinhas</h1><p>Seu controle de compras</p></div>
+      <button type="button" id="changePassword" class="small">Trocar senha</button>
     </div>
   </header>
-
   <main>
-
     <section class="card">
       <h2>Adicionar uma compra</h2>
-
-      <button id="btnLer"
-              class="botao-principal"
-              type="button">
-        📷 Ler notinha
-      </button>
-
-      <p class="dica">
-        Aponte a câmera para o QR Code da nota fiscal.
-      </p>
-
-      <div id="areaCamera">
+      <button type="button" class="primary" id="startCamera">📷 Ler notinha</button>
+      <p class="hint">Aponte a câmera para o QR Code da nota fiscal.</p>
+      <div id="cameraArea">
         <div id="reader"></div>
-
-        <div class="acoes-camera">
-          <button id="btnParar"
-                  class="botao-secundario"
-                  type="button">
-            Fechar câmera
-          </button>
-        </div>
+        <div class="camera-actions"><button type="button" class="secondary" id="stopCamera">Fechar câmera</button></div>
       </div>
     </section>
-
     <section class="card">
-      <label for="campoLink">
-        Ou cole o link da nota
-      </label>
-
-      <form id="formLink">
-        <div class="linha">
-          <input
-            id="campoLink"
-            type="url"
-            placeholder="https://www.nfce..."
-            autocomplete="off"
-            inputmode="url"
-          >
-
-          <button id="btnLancar"
-                  class="botao-lancar"
-                  type="submit">
-            Lançar
-          </button>
+      <form id="linkForm">
+        <label for="noteLink">Ou cole o link da nota</label>
+        <div class="inline">
+          <input id="noteLink" type="url" inputmode="url" placeholder="https://www.nfce..." autocomplete="off">
+          <button type="submit" class="submit" id="submitNote">Lançar</button>
         </div>
       </form>
     </section>
-
     <div id="status" role="status" aria-live="polite"></div>
-
-    <section id="resultado"
-             class="card oculto"
-             aria-live="polite">
-
+    <section class="card hidden" id="result" aria-live="polite">
       <h2>Compra encontrada</h2>
-
-      <div id="nomeLoja" class="nome-loja"></div>
-      <div id="dataCompra" class="data-compra"></div>
-
-      <div class="total-destaque">
-        <div class="total-rotulo">Total da compra</div>
-        <div id="totalCompra" class="total-valor"></div>
-      </div>
-
-      <div class="categoria-area">
-        <label for="campoCategoria">
-          Categoria da loja
-        </label>
-
-        <select id="campoCategoria">
-          <option value="Mercado">Mercado</option>
-          <option value="Farmácia">Farmácia</option>
-          <option value="Combustível">Combustível</option>
-          <option value="Restaurante">Restaurante</option>
-          <option value="Outros">Outros</option>
-        </select>
-
-        <div id="statusCategoria" aria-live="polite"></div>
-      </div>
-
-      <h2 style="margin-top:26px">
-        Itens da compra
-      </h2>
-
-      <div id="listaItens"></div>
-
+      <div id="shopName" class="shop"></div>
+      <div id="purchaseDate" class="date"></div>
+      <div class="total-box"><span>Total da compra</span><strong id="purchaseTotal"></strong></div>
+      <label for="category">Categoria da loja</label>
+      <select id="category">
+        <option>Mercado</option>
+        <option>Farmácia</option>
+        <option>Combustível</option>
+        <option>Restaurante</option>
+        <option>Outros</option>
+      </select>
+      <div id="categoryStatus" aria-live="polite"></div>
+      <h2 style="margin-top:25px">Itens da compra</h2>
+      <div id="items"></div>
     </section>
-
   </main>
-
-  <!-- Janela de senha -->
-  <div id="modalSenha"
-       class="modal oculto"
-       role="dialog"
-       aria-modal="true"
-       aria-labelledby="tituloSenha">
-
-    <div class="modal-conteudo">
-      <h2 id="tituloSenha">🔐 Acesso ao sistema</h2>
-
-      <p>
-        Digite a senha configurada no Google Apps Script.
-        Ela ficará salva neste navegador.
-      </p>
-
-      <form id="formSenha">
-        <label for="campoSenha">Senha</label>
-
-        <input
-          id="campoSenha"
-          type="password"
-          placeholder="Digite sua senha"
-          autocomplete="current-password"
-          required
-        >
-
-        <div id="erroSenha" class="modal-erro"></div>
-
-        <button class="botao-principal" type="submit">
-          Salvar senha
-        </button>
+  <div id="passwordModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="passwordHeading">
+    <div class="modal-box">
+      <h2 id="passwordHeading">🔐 Senha do aplicativo</h2>
+      <p>Digite a senha cadastrada no Apps Script. Ela ficará guardada neste navegador.</p>
+      <form id="passwordForm">
+        <label for="passwordInput">Senha</label>
+        <input id="passwordInput" type="password" autocomplete="current-password" required>
+        <div id="passwordError"></div>
+        <button type="submit" class="primary">Salvar senha</button>
       </form>
     </div>
   </div>
 
-  <!-- Biblioteca de leitura QR Code: versão fixa -->
   <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
-
   <script>
-    // =====================================================
-    // 1. CONFIGURAÇÃO
-    // =====================================================
+    // COLE A URL DA IMPLANTAÇÃO DO APPS SCRIPT, TERMINADA EM /exec
+    const URL_DO_MOTOR = "COLE_AQUI_A_URL_DO_APPS_SCRIPT";
 
-    // COLE AQUI O ENDEREÇO DA IMPLANTAÇÃO /exec
-    const URL_DO_MOTOR = "https://script.google.com/macros/s/AKfycbzSI1_n837anX3CE4DXx3EFYrZ3YNid0EXalLdIVgbytYfJ6qPKfHfvZzAWIW0tvFQ/exec";
-
-    const CHAVE_SENHA = "minhas_notinhas_senha";
-
-    const CATEGORIAS = [
-      "Mercado",
-      "Farmácia",
-      "Combustível",
-      "Restaurante",
-      "Outros"
-    ];
+    const SENHA_STORAGE = "minhas_notinhas_senha";
+    const URL_CONSULTA = "https://www.nfce.fazenda.sp.gov.br/NFCeConsultaPublica/Paginas/ConsultaQRCode.aspx";
+    const CATEGORIAS = ["Mercado", "Farmácia", "Combustível", "Restaurante", "Outros"];
+    const $ = id => document.getElementById(id);
 
     let senha = "";
     let scanner = null;
-    let cameraAtiva = false;
-    let cameraIniciando = false;
-    let leituraConcluida = false;
+    let iniciandoCamera = false;
+    let leituraRecebida = false;
     let processando = false;
     let lojaAtual = "";
     let categoriaAnterior = "Outros";
-    let mudandoCategoria = false;
+    let salvandoCategoria = false;
 
-    // =====================================================
-    // 2. ELEMENTOS DA TELA
-    // =====================================================
-
-    const $ = id => document.getElementById(id);
-
-    const btnLer = $("btnLer");
-    const btnParar = $("btnParar");
-    const btnLancar = $("btnLancar");
-    const btnTrocarSenha = $("btnTrocarSenha");
-    const campoLink = $("campoLink");
-    const campoCategoria = $("campoCategoria");
-    const areaCamera = $("areaCamera");
-    const status = $("status");
-    const resultado = $("resultado");
-    const listaItens = $("listaItens");
-    const modalSenha = $("modalSenha");
-    const campoSenha = $("campoSenha");
-
-    // =====================================================
-    // 3. SENHA
-    // =====================================================
-
-    function iniciar() {
-      try {
-        senha = localStorage.getItem(CHAVE_SENHA) || "";
-      } catch (erro) {
-        senha = "";
-      }
-
-      if (!senha) {
-        abrirSenha();
-      }
+    function mensagem(texto, tipo = "info") {
+      const el = $("status");
+      el.className = tipo;
+      el.textContent = texto;
     }
 
     function abrirSenha() {
-      $("erroSenha").textContent = "";
-      campoSenha.value = "";
-      modalSenha.classList.remove("oculto");
-
-      setTimeout(() => campoSenha.focus(), 50);
+      $("passwordError").textContent = "";
+      $("passwordInput").value = "";
+      $("passwordModal").classList.remove("hidden");
+      $("passwordInput").focus();
     }
 
-    function fecharSenha() {
-      modalSenha.classList.add("oculto");
+    function formatarMoeda(valor) {
+      const n = Number(valor);
+      return Number.isFinite(n) ? n.toLocaleString("pt-BR", {style:"currency", currency:"BRL"}) : "—";
     }
 
-    $("formSenha").addEventListener("submit", function(e) {
-      e.preventDefault();
+    function formatarQtd(valor) {
+      const n = Number(valor);
+      return Number.isFinite(n) ? n.toLocaleString("pt-BR", {maximumFractionDigits:4}) : String(valor ?? "");
+    }
 
-      const novaSenha = campoSenha.value;
-
-      if (!novaSenha.trim()) {
-        $("erroSenha").textContent = "Digite uma senha.";
-        return;
-      }
-
+    // Aceita o link que sai do QR Code (/qrcode) e o link longo de consulta.
+    // Sempre devolve o link longo, que é o formato exigido pelo Code.gs.
+    function normalizarLinkNota(texto) {
+      let url;
       try {
-        localStorage.setItem(CHAVE_SENHA, novaSenha);
-      } catch (erro) {
-        $("erroSenha").textContent =
-          "Este navegador não permitiu salvar a senha.";
-        return;
+        url = new URL(String(texto || "").trim());
+      } catch (_) {
+        throw new Error("O QR Code não contém um endereço válido.");
       }
 
-      senha = novaSenha;
-      fecharSenha();
+      const caminho = url.pathname.toLowerCase().replace(/\/$/, "");
+      const caminhosAceitos = [
+        "/qrcode",
+        "/nfceconsultapublica/paginas/consultaqrcode.aspx"
+      ];
 
-      mostrarStatus("Senha salva neste celular.", "sucesso");
-    });
-
-    btnTrocarSenha.addEventListener("click", async function() {
-      if (processando) return;
-
-      await pararCamera();
-      abrirSenha();
-    });
-
-    // =====================================================
-    // 4. MENSAGENS E INTERFACE
-    // =====================================================
-
-    function mostrarStatus(mensagem, tipo = "info", carregando = false) {
-      status.className = tipo;
-      status.replaceChildren();
-
-      if (carregando) {
-        const spinner = document.createElement("span");
-        spinner.className = "carregando";
-        spinner.setAttribute("aria-hidden", "true");
-        status.appendChild(spinner);
+      if (url.protocol !== "https:" ||
+          url.hostname.toLowerCase() !== "www.nfce.fazenda.sp.gov.br" ||
+          !caminhosAceitos.includes(caminho)) {
+        throw new Error("Este QR Code não é de uma NFC-e da Fazenda de São Paulo.");
       }
 
-      status.appendChild(document.createTextNode(mensagem));
+      const p = url.searchParams.get("p");
+      if (!p || !/^\d{44}(?:\||$)/.test(p)) {
+        throw new Error("A chave de acesso de 44 dígitos não foi encontrada no QR Code.");
+      }
+
+      return URL_CONSULTA + "?p=" + encodeURIComponent(p);
     }
 
-    function definirProcessando(valor) {
-      processando = valor;
-
-      btnLancar.disabled = valor;
-      btnLer.disabled = valor;
-      btnTrocarSenha.disabled = valor;
-      campoLink.disabled = valor;
+    function bloquearTela(ocupado) {
+      processando = ocupado;
+      $("startCamera").disabled = ocupado || iniciandoCamera;
+      $("submitNote").disabled = ocupado;
+      $("noteLink").disabled = ocupado;
+      $("changePassword").disabled = ocupado;
     }
 
-    function formatarDinheiro(valor) {
-      const numero = Number(valor);
-
-      if (!Number.isFinite(numero)) return "—";
-
-      return numero.toLocaleString("pt-BR", {
-        style: "currency",
-        currency: "BRL"
-      });
+    function erroCamera(err) {
+      const s = String((err && (err.name || err.message)) || err || "");
+      if (/NotAllowed|PermissionDenied/i.test(s)) return "Autorize a câmera nas configurações do navegador e tente novamente.";
+      if (/NotFound|DevicesNotFound/i.test(s)) return "Nenhuma câmera foi encontrada no celular.";
+      if (/NotReadable|TrackStart/i.test(s)) return "A câmera está ocupada por outro aplicativo. Feche-o e tente novamente.";
+      return "Não foi possível abrir a câmera. Verifique a permissão e a conexão HTTPS.";
     }
 
-    function formatarQuantidade(valor) {
-      const numero = Number(valor);
-
-      if (!Number.isFinite(numero)) {
-        return String(valor ?? "");
+    async function encerrarCamera() {
+      const instancia = scanner;
+      scanner = null;
+      if (instancia) {
+        try { if (instancia.isScanning) await instancia.stop(); } catch (err) { console.warn(err); }
+        try { instancia.clear(); } catch (err) { console.warn(err); }
       }
-
-      return numero.toLocaleString("pt-BR", {
-        maximumFractionDigits: 4
-      });
+      $("cameraArea").style.display = "none";
+      $("reader").replaceChildren();
+      $("startCamera").disabled = processando;
     }
 
-    function validarUrlMotor() {
-      try {
-        const url = new URL(URL_DO_MOTOR);
+    async function abrirCamera() {
+      if (processando || iniciandoCamera || scanner) return;
+      if (!senha) { abrirSenha(); return; }
+      if (!window.isSecureContext) { mensagem("Abra o site pelo endereço HTTPS do GitHub Pages para usar a câmera.", "error"); return; }
+      if (typeof Html5Qrcode === "undefined") { mensagem("A biblioteca do QR Code não carregou. Verifique a internet e recarregue a página.", "error"); return; }
 
-        return (
-          url.protocol === "https:" &&
-          url.hostname === "script.google.com" &&
-          url.pathname.endsWith("/exec")
-        );
-      } catch (erro) {
-        return false;
-      }
-    }
-
-    function validarLinkNota(texto) {
-      try {
-        const url = new URL(texto.trim());
-
-        if (url.protocol !== "https:" ||
-            url.hostname !== "www.nfce.fazenda.sp.gov.br" ||
-            url.pathname.toLowerCase() !==
-              "/nfceconsultapublica/paginas/consultaqrcode.aspx") {
-          return false;
-        }
-
-        const p = url.searchParams.get("p");
-
-        return !!p && /^\d{44}(?:\||$)/.test(p);
-      } catch (erro) {
-        return false;
-      }
-    }
-
-    // =====================================================
-    // 5. CÂMERA AO VIVO
-    // =====================================================
-
-    async function iniciarCamera() {
-      if (processando || cameraAtiva || cameraIniciando) return;
-
-      if (!senha) {
-        abrirSenha();
-        return;
-      }
-
-      if (!window.isSecureContext) {
-        mostrarStatus(
-          "A câmera exige HTTPS. Abra a página pelo endereço " +
-          "https:// do GitHub Pages.",
-          "erro"
-        );
-        return;
-      }
-
-      if (typeof Html5Qrcode === "undefined") {
-        mostrarStatus(
-          "A biblioteca de leitura do QR Code não carregou. " +
-          "Verifique a conexão com a internet e atualize a página.",
-          "erro"
-        );
-        return;
-      }
-
-      cameraIniciando = true;
-      leituraConcluida = false;
-      btnLer.disabled = true;
-
-      resultado.classList.add("oculto");
-      areaCamera.style.display = "block";
-
-      mostrarStatus(
-        "Abrindo a câmera traseira...",
-        "info",
-        true
-      );
+      iniciandoCamera = true;
+      leituraRecebida = false;
+      $("startCamera").disabled = true;
+      $("result").classList.add("hidden");
+      $("cameraArea").style.display = "block";
+      mensagem("Abrindo câmera traseira...", "info");
 
       try {
         scanner = new Html5Qrcode("reader", {
-          formatsToSupport: [
-            Html5QrcodeSupportedFormats.QR_CODE
-          ],
+          formatsToSupport: [Html5QrcodeSupportedFormats.QR_CODE],
           useBarCodeDetectorIfSupported: true,
           verbose: false
         });
-
-        const config = {
-          fps: 12,
-          qrbox: function(largura, altura) {
-            const lado = Math.max(
-              150,
-              Math.min(300, Math.floor(Math.min(largura, altura) * .82))
-            );
-
-            return {
-              width: lado,
-              height: lado
-            };
-          },
-          disableFlip: true
-        };
-
         await scanner.start(
           { facingMode: "environment" },
-          config,
-          qrCodeLido,
-          function() {
-            // Não mostrar erro a cada frame sem QR Code.
-          }
+          {
+            fps: 12,
+            qrbox: (largura, altura) => {
+              const lado = Math.min(300, Math.floor(Math.min(largura, altura) * 0.8));
+              return { width: lado, height: lado };
+            }
+          },
+          async (texto) => {
+            if (leituraRecebida || processando) return;
+            leituraRecebida = true;
+            mensagem("QR Code lido!", "success");
+            // Guardamos o texto original para facilitar uma nova tentativa.
+            $("noteLink").value = texto.trim();
+            await encerrarCamera();
+            await lancarNota(texto);
+          },
+          () => {} // Ausência de QR Code em um frame é normal.
         );
-
-        cameraAtiva = true;
-
-        mostrarStatus(
-          "Câmera ligada. Centralize o QR Code dentro do quadrado " +
-          "e aproxime até ficar nítido.",
-          "info"
-        );
-
-      } catch (erro) {
-        console.error("Erro na câmera:", erro);
-
-        cameraAtiva = false;
-
-        mostrarStatus(
-          mensagemErroCamera(erro),
-          "erro"
-        );
-
-        await pararCamera();
-
+        if (!leituraRecebida) mensagem("Câmera ligada. Centralize o QR Code no quadrado.", "info");
+      } catch (err) {
+        console.error(err);
+        mensagem(erroCamera(err), "error");
+        await encerrarCamera();
       } finally {
-        cameraIniciando = false;
-        btnLer.disabled = processando;
+        iniciandoCamera = false;
+        $("startCamera").disabled = processando;
       }
     }
 
-    function mensagemErroCamera(erro) {
-      const nome = erro?.name || "";
-      const texto = String(erro?.message || erro || "");
-
-      if (/NotAllowedError|PermissionDenied/i.test(nome + texto)) {
-        return "Permissão da câmera negada. Libere a câmera nas " +
-               "configurações do navegador e tente novamente.";
+    async function enviarMotor(acao, campos) {
+      if (!/^https:\/\/script\.google\.com\/macros\/s\/[^/]+\/exec(?:\?.*)?$/.test(URL_DO_MOTOR)) {
+        throw new Error("Cole o endereço de implantação do Apps Script em URL_DO_MOTOR, terminado em /exec.");
       }
+      if (!senha) { abrirSenha(); throw new Error("Informe a senha antes de continuar."); }
 
-      if (/NotFoundError|DevicesNotFound/i.test(nome + texto)) {
-        return "Nenhuma câmera foi encontrada neste dispositivo.";
-      }
-
-      if (/NotReadableError|TrackStartError/i.test(nome + texto)) {
-        return "A câmera está ocupada por outro aplicativo. " +
-               "Feche o outro aplicativo e tente novamente.";
-      }
-
-      return "Não foi possível abrir a câmera. Verifique as " +
-             "permissões e tente novamente.";
-    }
-
-    async function pararCamera() {
-      const instancia = scanner;
-
-      cameraAtiva = false;
-      scanner = null;
-
-      if (instancia) {
-        try {
-          if (instancia.isScanning) {
-            await instancia.stop();
-          }
-        } catch (erro) {
-          console.warn("Falha ao parar câmera:", erro);
-        }
-
-        try {
-          instancia.clear();
-        } catch (erro) {
-          console.warn("Falha ao limpar leitor:", erro);
-        }
-      }
-
-      areaCamera.style.display = "none";
-      $("reader").replaceChildren();
-
-      btnLer.disabled = processando;
-    }
-
-    async function qrCodeLido(texto) {
-      if (leituraConcluida || processando) return;
-
-      leituraConcluida = true;
-
-      const link = texto.trim();
-
-      mostrarStatus("QR Code identificado!", "sucesso");
-
-      // Encerra a câmera antes de consultar a nota.
-      await pararCamera();
-
-      campoLink.value = link;
-
-      if (!validarLinkNota(link)) {
-        mostrarStatus(
-          "QR Code lido, mas rejeitado pela validação. " +
-          "Conteúdo recebido: " + JSON.stringify(link),
-          "aviso"
-        );
-        console.log("QR CODE ORIGINAL:", link);
-        return;
-      }
-
-      await lancarNota(link);
-    }
-
-    btnLer.addEventListener("click", iniciarCamera);
-
-    btnParar.addEventListener("click", async function() {
-      leituraConcluida = true;
-      await pararCamera();
-
-      mostrarStatus("Câmera desligada.", "info");
-    });
-
-    // =====================================================
-    // 6. COMUNICAÇÃO COM GOOGLE APPS SCRIPT
-    // =====================================================
-
-    async function enviarMotor(dados) {
-      if (!validarUrlMotor()) {
-        throw new Error(
-          "O endereço do Apps Script não foi configurado. " +
-          "Cole a URL da implantação /exec em URL_DO_MOTOR."
-        );
-      }
-
-      if (!senha) {
-        abrirSenha();
-        throw new Error("Informe a senha para continuar.");
-      }
-
-      const corpo = JSON.stringify({
-        senha: senha,
-        acao: dados.acao,
-        link: dados.link || "",
-        loja: dados.loja || "",
-        categoria: dados.categoria || ""
-      });
-
-      const controlador = new AbortController();
-      const limite = setTimeout(
-        () => controlador.abort(), 60000
-      );
-
+      const controle = new AbortController();
+      const temporizador = setTimeout(() => controle.abort(), 60000);
       let resposta;
-
       try {
         resposta = await fetch(URL_DO_MOTOR, {
           method: "POST",
-          headers: {
-            "Content-Type": "text/plain;charset=utf-8"
-          },
-          body: corpo,
+          headers: { "Content-Type": "text/plain;charset=utf-8" },
+          body: JSON.stringify({ senha, acao, link: campos.link || "", loja: campos.loja || "", categoria: campos.categoria || "" }),
           redirect: "follow",
-          signal: controlador.signal
+          signal: controle.signal
         });
-      } catch (erro) {
-        if (erro.name === "AbortError") {
-          throw new Error(
-            "A consulta demorou mais de 60 segundos. " +
-            "Não foi possível confirmar se a operação foi gravada. " +
-            "Verifique a planilha antes de tentar novamente."
-          );
+      } catch (err) {
+        if (err.name === "AbortError") {
+          throw new Error("A consulta demorou demais. Verifique a planilha antes de tentar novamente.");
         }
-
-        throw new Error(
-          "Não foi possível receber a resposta do Apps Script. " +
-          "Pode ser um bloqueio de CORS ou uma falha de conexão. " +
-          "A operação pode ter chegado à planilha, portanto confira " +
-          "antes de tentar novamente."
-        );
+        throw new Error("Não foi possível ler a resposta do Apps Script. Pode ser um bloqueio de CORS do Google ou falha de rede. Confira a planilha antes de repetir.");
       } finally {
-        clearTimeout(limite);
+        clearTimeout(temporizador);
       }
 
-      if (!resposta.ok) {
-        throw new Error(
-          "O Apps Script respondeu com erro HTTP " +
-          resposta.status + ". Confira a implantação."
-        );
-      }
+      if (!resposta.ok) throw new Error("O Apps Script retornou HTTP " + resposta.status + ". Verifique a implantação.");
+      let dados;
+      try { dados = await resposta.json(); }
+      catch (_) { throw new Error("O Apps Script não retornou um JSON válido."); }
+      if (!dados || typeof dados !== "object") throw new Error("Resposta inválida do Apps Script.");
 
-      let dadosResposta;
-
-      try {
-        dadosResposta = await resposta.json();
-      } catch (erro) {
-        throw new Error(
-          "O Apps Script não retornou um JSON válido. " +
-          "Confira se a implantação está atualizada e acessível."
-        );
-      }
-
-      if (!dadosResposta ||
-          typeof dadosResposta !== "object") {
-        throw new Error(
-          "O Apps Script retornou uma resposta inválida."
-        );
-      }
-
-      if (dadosResposta.aviso === "Senha inválida") {
-        try {
-          localStorage.removeItem(CHAVE_SENHA);
-        } catch (erro) {}
-
+      if (dados.aviso === "Senha inválida") {
         senha = "";
+        try { localStorage.removeItem(SENHA_STORAGE); } catch (_) {}
         abrirSenha();
       }
-
-      return dadosResposta;
+      return dados;
     }
 
-    // =====================================================
-    // 7. LANÇAMENTO DE COMPRA
-    // =====================================================
-
-    async function lancarNota(link) {
+    async function lancarNota(linkOriginal) {
       if (processando) return;
-
-      if (!validarLinkNota(link)) {
-        mostrarStatus(
-          "O link não é uma NFC-e válida da Fazenda de SP. " +
-          "Copie o endereço completo do QR Code.",
-          "erro"
-        );
+      let link;
+      try {
+        link = normalizarLinkNota(linkOriginal);
+      } catch (err) {
+        mensagem(err.message, "warning");
         return;
       }
 
-      await pararCamera();
-
-      resultado.classList.add("oculto");
-      definirProcessando(true);
-
-      mostrarStatus(
-        "Buscando a nota...",
-        "info",
-        true
-      );
+      await encerrarCamera();
+      $("result").classList.add("hidden");
+      bloquearTela(true);
+      mensagem("Buscando a nota...", "info");
 
       try {
-        const resposta = await enviarMotor({
-          acao: "lancar",
-          link: link
-        });
-
-        const duplicada =
-          resposta.aviso === "Essa notinha já foi lançada";
-
-        if (resposta.ok || duplicada) {
-          exibirCompra(resposta);
-
-          mostrarStatus(
-            resposta.aviso ||
-              (duplicada
-                ? "Essa notinha já foi lançada"
-                : "Compra lançada com sucesso!"),
-            duplicada ? "aviso" : "sucesso"
-          );
+        const nota = await enviarMotor("lancar", { link });
+        const duplicada = nota.aviso === "Essa notinha já foi lançada";
+        if (nota.ok || duplicada) {
+          exibirCompra(nota);
+          mensagem(nota.aviso || "Compra lançada com sucesso!", duplicada ? "warning" : "success");
         } else {
-          mostrarStatus(
-            resposta.aviso ||
-              "Não foi possível lançar a compra.",
-            "erro"
-          );
+          mensagem(nota.aviso || "Não foi possível lançar a compra.", "error");
         }
-
-      } catch (erro) {
-        console.error("Erro ao lançar:", erro);
-
-        mostrarStatus(
-          erro.message || "Ocorreu um erro inesperado.",
-          "erro"
-        );
-
+      } catch (err) {
+        console.error(err);
+        mensagem(err.message || "Erro inesperado ao lançar a compra.", "error");
       } finally {
-        definirProcessando(false);
+        bloquearTela(false);
       }
     }
-
-    $("formLink").addEventListener("submit", async function(e) {
-      e.preventDefault();
-
-      const link = campoLink.value.trim();
-
-      if (!link) {
-        mostrarStatus(
-          "Cole o link da notinha antes de lançar.",
-          "aviso"
-        );
-        campoLink.focus();
-        return;
-      }
-
-      await lancarNota(link);
-    });
-
-    // =====================================================
-    // 8. EXIBIÇÃO DA COMPRA
-    // =====================================================
 
     function exibirCompra(nota) {
       lojaAtual = String(nota.loja || "").trim();
+      $("shopName").textContent = lojaAtual || "Loja não informada";
+      $("purchaseDate").textContent = "Data da compra: " + (nota.data || "Não informada");
+      $("purchaseTotal").textContent = formatarMoeda(nota.total);
 
-      $("nomeLoja").textContent = lojaAtual || "Loja não informada";
-      $("dataCompra").textContent =
-        "Data da compra: " + (nota.data || "Não informada");
+      categoriaAnterior = CATEGORIAS.includes(nota.categoria) ? nota.categoria : "Outros";
+      $("category").value = categoriaAnterior;
+      $("category").disabled = !lojaAtual;
+      $("categoryStatus").textContent = "";
+      $("items").replaceChildren();
 
-      $("totalCompra").textContent =
-        formatarDinheiro(nota.total);
-
-      categoriaAnterior = CATEGORIAS.includes(nota.categoria)
-        ? nota.categoria
-        : "Outros";
-
-      campoCategoria.value = categoriaAnterior;
-      campoCategoria.disabled = !lojaAtual;
-      $("statusCategoria").textContent = "";
-
-      listaItens.replaceChildren();
-
-      const itens = Array.isArray(nota.itens)
-        ? nota.itens
-        : [];
-
+      const itens = Array.isArray(nota.itens) ? nota.itens : [];
       if (!itens.length) {
-        const vazio = document.createElement("p");
-        vazio.className = "dica";
-        vazio.textContent = "Nenhum produto retornado.";
-        listaItens.appendChild(vazio);
+        const p = document.createElement("p");
+        p.className = "hint";
+        p.textContent = "Nenhum produto retornado.";
+        $("items").appendChild(p);
       }
-
-      for (const item of itens) {
-        const linha = document.createElement("div");
-        linha.className = "item";
-
-        const ladoEsquerdo = document.createElement("div");
-
-        const descricao = document.createElement("div");
-        descricao.className = "item-descricao";
-        descricao.textContent = item.descricao || "Produto";
-
-        const detalhes = document.createElement("div");
-        detalhes.className = "item-detalhe";
-        detalhes.textContent =
-          formatarQuantidade(item.quantidade) +
-          " " + (item.unidade || "un") +
-          " × " + formatarDinheiro(item.precoUnitario);
-
-        ladoEsquerdo.append(descricao, detalhes);
-
-        const total = document.createElement("div");
-        total.className = "item-total";
-        total.textContent = formatarDinheiro(item.total);
-
-        linha.append(ladoEsquerdo, total);
-        listaItens.appendChild(linha);
-      }
-
-      resultado.classList.remove("oculto");
+      itens.forEach(item => {
+        const linha = document.createElement("div"); linha.className = "item";
+        const esquerda = document.createElement("div");
+        const nome = document.createElement("div"); nome.className = "item-name"; nome.textContent = item.descricao || "Produto";
+        const detalhe = document.createElement("div"); detalhe.className = "item-detail";
+        detalhe.textContent = formatarQtd(item.quantidade) + " " + (item.unidade || "un") + " × " + formatarMoeda(item.precoUnitario);
+        esquerda.append(nome, detalhe);
+        const total = document.createElement("div"); total.className = "item-total"; total.textContent = formatarMoeda(item.total);
+        linha.append(esquerda, total);
+        $("items").appendChild(linha);
+      });
+      $("result").classList.remove("hidden");
     }
 
-    // =====================================================
-    // 9. ALTERAÇÃO DE CATEGORIA
-    // =====================================================
-
-    campoCategoria.addEventListener("change", async function() {
-      if (!lojaAtual || mudandoCategoria) return;
-
-      const novaCategoria = campoCategoria.value;
-
-      if (novaCategoria === categoriaAnterior) return;
-
-      mudandoCategoria = true;
-      campoCategoria.disabled = true;
-
-      $("statusCategoria").textContent =
-        "Salvando categoria...";
-
+    $("category").addEventListener("change", async () => {
+      if (!lojaAtual || salvandoCategoria) return;
+      const nova = $("category").value;
+      if (nova === categoriaAnterior) return;
+      salvandoCategoria = true;
+      $("category").disabled = true;
+      $("categoryStatus").textContent = "Salvando categoria...";
       try {
-        const resposta = await enviarMotor({
-          acao: "categoria",
-          loja: lojaAtual,
-          categoria: novaCategoria
-        });
-
-        if (!resposta.ok) {
-          throw new Error(
-            resposta.aviso ||
-            "Não foi possível salvar a categoria."
-          );
-        }
-
-        categoriaAnterior = novaCategoria;
-
-        $("statusCategoria").textContent =
-          "✓ Categoria atualizada!";
-
-        mostrarStatus(
-          resposta.aviso || "Categoria salva com sucesso!",
-          "sucesso"
-        );
-
-      } catch (erro) {
-        campoCategoria.value = categoriaAnterior;
-
-        $("statusCategoria").textContent =
-          "Não foi possível confirmar a alteração.";
-
-        mostrarStatus(erro.message, "erro");
-
+        const resposta = await enviarMotor("categoria", { loja: lojaAtual, categoria: nova });
+        if (!resposta.ok) throw new Error(resposta.aviso || "Não foi possível mudar a categoria.");
+        categoriaAnterior = nova;
+        $("categoryStatus").textContent = "✓ Categoria atualizada!";
+      } catch (err) {
+        $("category").value = categoriaAnterior;
+        $("categoryStatus").textContent = "Não foi possível confirmar a alteração.";
+        mensagem(err.message, "error");
       } finally {
-        mudandoCategoria = false;
-        campoCategoria.disabled = false;
+        salvandoCategoria = false;
+        $("category").disabled = false;
       }
     });
 
-    // =====================================================
-    // 10. INICIALIZAÇÃO
-    // =====================================================
-
-    document.addEventListener("visibilitychange", function() {
-      if (document.hidden && cameraAtiva) {
-        leituraConcluida = true;
-        pararCamera();
+    $("startCamera").addEventListener("click", abrirCamera);
+    $("stopCamera").addEventListener("click", async () => {
+      leituraRecebida = true;
+      await encerrarCamera();
+      mensagem("Câmera desligada.", "info");
+    });
+    $("linkForm").addEventListener("submit", async e => {
+      e.preventDefault();
+      if (!$("noteLink").value.trim()) {
+        mensagem("Cole o link da notinha antes de lançar.", "warning");
+        return;
       }
+      await lancarNota($("noteLink").value);
+    });
+    $("changePassword").addEventListener("click", async () => {
+      if (processando) return;
+      await encerrarCamera();
+      abrirSenha();
+    });
+    $("passwordForm").addEventListener("submit", e => {
+      e.preventDefault();
+      const nova = $("passwordInput").value;
+      if (!nova.trim()) { $("passwordError").textContent = "Digite a senha."; return; }
+      try { localStorage.setItem(SENHA_STORAGE, nova); }
+      catch (_) { $("passwordError").textContent = "Não foi possível salvar a senha neste navegador."; return; }
+      senha = nova;
+      $("passwordModal").classList.add("hidden");
+      mensagem("Senha salva neste celular.", "success");
     });
 
-    window.addEventListener("pagehide", function() {
-      if (cameraAtiva) {
-        pararCamera();
-      }
+    document.addEventListener("visibilitychange", () => {
+      if (document.hidden && scanner) { leituraRecebida = true; encerrarCamera(); }
     });
+    window.addEventListener("pagehide", () => { if (scanner) encerrarCamera(); });
 
-    iniciar();
-
+    try { senha = localStorage.getItem(SENHA_STORAGE) || ""; } catch (_) { senha = ""; }
+    if (!senha) abrirSenha();
   </script>
 </body>
 </html>
