@@ -1,0 +1,1218 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#173b64">
+  <title>Minhas Notinhas</title>
+
+  <style>
+    :root {
+      font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+      color: #172b41;
+      background: #f3f6fa;
+      font-size: 17px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+    }
+
+    .topo {
+      background: #173b64;
+      color: white;
+      padding: 24px 20px 28px;
+      border-radius: 0 0 24px 24px;
+    }
+
+    .topo-conteudo {
+      max-width: 540px;
+      margin: auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 27px;
+      letter-spacing: -.6px;
+    }
+
+    .subtitulo {
+      margin: 6px 0 0;
+      font-size: 14px;
+      opacity: .85;
+    }
+
+    main {
+      max-width: 540px;
+      margin: auto;
+      padding: 20px 15px 50px;
+    }
+
+    .card {
+      background: white;
+      border-radius: 20px;
+      padding: 20px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 15px rgba(0,0,0,.045);
+    }
+
+    h2 {
+      font-size: 19px;
+      margin: 0 0 15px;
+    }
+
+    p {
+      line-height: 1.5;
+    }
+
+    button, input, select {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+      border: 0;
+      font-weight: 700;
+      border-radius: 13px;
+    }
+
+    button:disabled {
+      cursor: not-allowed;
+      opacity: .55;
+    }
+
+    .botao-principal {
+      width: 100%;
+      min-height: 67px;
+      background: #1768cb;
+      color: white;
+      font-size: 22px;
+      padding: 14px;
+    }
+
+    .botao-principal:active {
+      background: #104c99;
+    }
+
+    .botao-secundario {
+      background: #e7eef7;
+      color: #173b64;
+      min-height: 52px;
+      padding: 12px 18px;
+      font-size: 17px;
+    }
+
+    .botao-pequeno {
+      background: rgba(255,255,255,.14);
+      color: white;
+      border: 1px solid rgba(255,255,255,.3);
+      padding: 9px 12px;
+      font-size: 12px;
+      white-space: nowrap;
+    }
+
+    .botao-lancar {
+      background: #173b64;
+      color: white;
+      padding: 0 20px;
+      min-height: 55px;
+      font-size: 17px;
+    }
+
+    label {
+      display: block;
+      font-size: 15px;
+      font-weight: 650;
+      margin-bottom: 9px;
+    }
+
+    input, select {
+      width: 100%;
+      border: 2px solid #d9e2ed;
+      border-radius: 12px;
+      min-height: 55px;
+      padding: 12px;
+      background: white;
+      color: #172b41;
+      font-size: 16px;
+    }
+
+    input:focus, select:focus {
+      outline: 2px solid #80b8ff;
+      border-color: #1768cb;
+    }
+
+    .linha {
+      display: flex;
+      gap: 9px;
+      align-items: stretch;
+    }
+
+    .linha input {
+      min-width: 0;
+      flex: 1;
+    }
+
+    .dica {
+      text-align: center;
+      font-size: 14px;
+      color: #65788e;
+      margin: 12px 0 0;
+    }
+
+    #areaCamera {
+      margin-top: 16px;
+      display: none;
+    }
+
+    #reader {
+      width: 100%;
+      overflow: hidden;
+      background: #101923;
+      border-radius: 15px;
+      min-height: 240px;
+    }
+
+    #reader video {
+      width: 100% !important;
+      object-fit: cover;
+    }
+
+    .acoes-camera {
+      margin-top: 12px;
+      text-align: center;
+    }
+
+    #status {
+      display: none;
+      margin-bottom: 16px;
+      padding: 15px;
+      border-radius: 13px;
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 1.5;
+      overflow-wrap: anywhere;
+    }
+
+    #status.info {
+      display: block;
+      background: #e4f0ff;
+      color: #194878;
+    }
+
+    #status.sucesso {
+      display: block;
+      background: #e4f5ea;
+      color: #186337;
+    }
+
+    #status.aviso {
+      display: block;
+      background: #fff2d9;
+      color: #855300;
+    }
+
+    #status.erro {
+      display: block;
+      background: #ffebeb;
+      color: #962b2b;
+    }
+
+    .carregando {
+      display: inline-block;
+      width: 18px;
+      height: 18px;
+      border: 3px solid #9ebede;
+      border-top-color: #1768cb;
+      border-radius: 50%;
+      animation: girar .8s linear infinite;
+      vertical-align: middle;
+      margin-right: 8px;
+    }
+
+    @keyframes girar {
+      to { transform: rotate(360deg); }
+    }
+
+    .oculto {
+      display: none !important;
+    }
+
+    .nome-loja {
+      font-size: 22px;
+      font-weight: 750;
+      overflow-wrap: anywhere;
+      margin-bottom: 6px;
+    }
+
+    .data-compra {
+      color: #65788e;
+      font-size: 15px;
+    }
+
+    .total-destaque {
+      background: #f0f6fd;
+      border-radius: 15px;
+      padding: 17px;
+      margin: 18px 0;
+    }
+
+    .total-rotulo {
+      font-size: 14px;
+      color: #576e87;
+    }
+
+    .total-valor {
+      font-size: 35px;
+      font-weight: 800;
+      color: #1768cb;
+      margin-top: 4px;
+    }
+
+    .item {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid #e8edf3;
+    }
+
+    .item:last-child {
+      border-bottom: 0;
+    }
+
+    .item-descricao {
+      font-size: 16px;
+      font-weight: 650;
+      overflow-wrap: anywhere;
+    }
+
+    .item-detalhe {
+      font-size: 14px;
+      color: #67798a;
+      margin-top: 5px;
+    }
+
+    .item-total {
+      font-weight: 700;
+      white-space: nowrap;
+      font-size: 16px;
+    }
+
+    .categoria-area {
+      margin-top: 20px;
+    }
+
+    #statusCategoria {
+      font-size: 14px;
+      margin-top: 9px;
+      min-height: 20px;
+    }
+
+    .modal {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(11,25,42,.8);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-conteudo {
+      background: white;
+      border-radius: 20px;
+      width: 100%;
+      max-width: 420px;
+      padding: 26px;
+    }
+
+    .modal-conteudo h2 {
+      font-size: 24px;
+    }
+
+    .modal-conteudo p {
+      color: #586b7e;
+      font-size: 15px;
+    }
+
+    .modal-conteudo input {
+      margin-bottom: 14px;
+    }
+
+    .modal-erro {
+      min-height: 20px;
+      color: #b12929;
+      font-size: 14px;
+      margin-bottom: 8px;
+    }
+
+    @media (max-width: 370px) {
+      .card { padding: 15px; }
+      h1 { font-size: 23px; }
+      .botao-principal { font-size: 19px; }
+      .botao-lancar { padding: 0 13px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="topo">
+    <div class="topo-conteudo">
+      <div>
+        <h1>🧾 Minhas Notinhas</h1>
+        <p class="subtitulo">Seu controle de compras</p>
+      </div>
+
+      <button id="btnTrocarSenha"
+              class="botao-pequeno"
+              type="button">
+        Trocar senha
+      </button>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="card">
+      <h2>Adicionar uma compra</h2>
+
+      <button id="btnLer"
+              class="botao-principal"
+              type="button">
+        📷 Ler notinha
+      </button>
+
+      <p class="dica">
+        Aponte a câmera para o QR Code da nota fiscal.
+      </p>
+
+      <div id="areaCamera">
+        <div id="reader"></div>
+
+        <div class="acoes-camera">
+          <button id="btnParar"
+                  class="botao-secundario"
+                  type="button">
+            Fechar câmera
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <label for="campoLink">
+        Ou cole o link da nota
+      </label>
+
+      <form id="formLink">
+        <div class="linha">
+          <input
+            id="campoLink"
+            type="url"
+            placeholder="https://www.nfce..."
+            autocomplete="off"
+            inputmode="url"
+          >
+
+          <button id="btnLancar"
+                  class="botao-lancar"
+                  type="submit">
+            Lançar
+          </button>
+        </div>
+      </form>
+    </section>
+
+    <div id="status" role="status" aria-live="polite"></div>
+
+    <section id="resultado"
+             class="card oculto"
+             aria-live="polite">
+
+      <h2>Compra encontrada</h2>
+
+      <div id="nomeLoja" class="nome-loja"></div>
+      <div id="dataCompra" class="data-compra"></div>
+
+      <div class="total-destaque">
+        <div class="total-rotulo">Total da compra</div>
+        <div id="totalCompra" class="total-valor"></div>
+      </div>
+
+      <div class="categoria-area">
+        <label for="campoCategoria">
+          Categoria da loja
+        </label>
+
+        <select id="campoCategoria">
+          <option value="Mercado">Mercado</option>
+          <option value="Farmácia">Farmácia</option>
+          <option value="Combustível">Combustível</option>
+          <option value="Restaurante">Restaurante</option>
+          <option value="Outros">Outros</option>
+        </select>
+
+        <div id="statusCategoria" aria-live="polite"></div>
+      </div>
+
+      <h2 style="margin-top:26px">
+        Itens da compra
+      </h2>
+
+      <div id="listaItens"></div>
+
+    </section>
+
+  </main>
+
+  <!-- Janela de senha -->
+  <div id="modalSenha"
+       class="modal oculto"
+       role="dialog"
+       aria-modal="true"
+       aria-labelledby="tituloSenha">
+
+    <div class="modal-conteudo">
+      <h2 id="tituloSenha">🔐 Acesso ao sistema</h2>
+
+      <p>
+        Digite a senha configurada no Google Apps Script.
+        Ela ficará salva neste navegador.
+      </p>
+
+      <form id="formSenha">
+        <label for="campoSenha">Senha</label>
+
+        <input
+          id="campoSenha"
+          type="password"
+          placeholder="Digite sua senha"
+          autocomplete="current-password"
+          required
+        >
+
+        <div id="erroSenha" class="modal-erro"></div>
+
+        <button class="botao-principal" type="submit">
+          Salvar senha
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Biblioteca de leitura QR Code: versão fixa -->
+  <script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+
+  <script>
+    // =====================================================
+    // 1. CONFIGURAÇÃO
+    // =====================================================
+
+    // COLE AQUI O ENDEREÇO DA IMPLANTAÇÃO /exec
+    const URL_DO_MOTOR = "https://script.google.com/macros/s/AKfycbzSI1_n837anX3CE4DXx3EFYrZ3YNid0EXalLdIVgbytYfJ6qPKfHfvZzAWIW0tvFQ/exec";
+
+    const CHAVE_SENHA = "minhas_notinhas_senha";
+
+    const CATEGORIAS = [
+      "Mercado",
+      "Farmácia",
+      "Combustível",
+      "Restaurante",
+      "Outros"
+    ];
+
+    let senha = "";
+    let scanner = null;
+    let cameraAtiva = false;
+    let cameraIniciando = false;
+    let leituraConcluida = false;
+    let processando = false;
+    let lojaAtual = "";
+    let categoriaAnterior = "Outros";
+    let mudandoCategoria = false;
+
+    // =====================================================
+    // 2. ELEMENTOS DA TELA
+    // =====================================================
+
+    const $ = id => document.getElementById(id);
+
+    const btnLer = $("btnLer");
+    const btnParar = $("btnParar");
+    const btnLancar = $("btnLancar");
+    const btnTrocarSenha = $("btnTrocarSenha");
+    const campoLink = $("campoLink");
+    const campoCategoria = $("campoCategoria");
+    const areaCamera = $("areaCamera");
+    const status = $("status");
+    const resultado = $("resultado");
+    const listaItens = $("listaItens");
+    const modalSenha = $("modalSenha");
+    const campoSenha = $("campoSenha");
+
+    // =====================================================
+    // 3. SENHA
+    // =====================================================
+
+    function iniciar() {
+      try {
+        senha = localStorage.getItem(CHAVE_SENHA) || "";
+      } catch (erro) {
+        senha = "";
+      }
+
+      if (!senha) {
+        abrirSenha();
+      }
+    }
+
+    function abrirSenha() {
+      $("erroSenha").textContent = "";
+      campoSenha.value = "";
+      modalSenha.classList.remove("oculto");
+
+      setTimeout(() => campoSenha.focus(), 50);
+    }
+
+    function fecharSenha() {
+      modalSenha.classList.add("oculto");
+    }
+
+    $("formSenha").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      const novaSenha = campoSenha.value;
+
+      if (!novaSenha.trim()) {
+        $("erroSenha").textContent = "Digite uma senha.";
+        return;
+      }
+
+      try {
+        localStorage.setItem(CHAVE_SENHA, novaSenha);
+      } catch (erro) {
+        $("erroSenha").textContent =
+          "Este navegador não permitiu salvar a senha.";
+        return;
+      }
+
+      senha = novaSenha;
+      fecharSenha();
+
+      mostrarStatus("Senha salva neste celular.", "sucesso");
+    });
+
+    btnTrocarSenha.addEventListener("click", async function() {
+      if (processando) return;
+
+      await pararCamera();
+      abrirSenha();
+    });
+
+    // =====================================================
+    // 4. MENSAGENS E INTERFACE
+    // =====================================================
+
+    function mostrarStatus(mensagem, tipo = "info", carregando = false) {
+      status.className = tipo;
+      status.replaceChildren();
+
+      if (carregando) {
+        const spinner = document.createElement("span");
+        spinner.className = "carregando";
+        spinner.setAttribute("aria-hidden", "true");
+        status.appendChild(spinner);
+      }
+
+      status.appendChild(document.createTextNode(mensagem));
+    }
+
+    function definirProcessando(valor) {
+      processando = valor;
+
+      btnLancar.disabled = valor;
+      btnLer.disabled = valor;
+      btnTrocarSenha.disabled = valor;
+      campoLink.disabled = valor;
+    }
+
+    function formatarDinheiro(valor) {
+      const numero = Number(valor);
+
+      if (!Number.isFinite(numero)) return "—";
+
+      return numero.toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL"
+      });
+    }
+
+    function formatarQuantidade(valor) {
+      const numero = Number(valor);
+
+      if (!Number.isFinite(numero)) {
+        return String(valor ?? "");
+      }
+
+      return numero.toLocaleString("pt-BR", {
+        maximumFractionDigits: 4
+      });
+    }
+
+    function validarUrlMotor() {
+      try {
+        const url = new URL(URL_DO_MOTOR);
+
+        return (
+          url.protocol === "https:" &&
+          url.hostname === "script.google.com" &&
+          url.pathname.endsWith("/exec")
+        );
+      } catch (erro) {
+        return false;
+      }
+    }
+
+    function validarLinkNota(texto) {
+      try {
+        const url = new URL(texto.trim());
+
+        if (url.protocol !== "https:" ||
+            url.hostname !== "www.nfce.fazenda.sp.gov.br" ||
+            url.pathname.toLowerCase() !==
+              "/nfceconsultapublica/paginas/consultaqrcode.aspx") {
+          return false;
+        }
+
+        const p = url.searchParams.get("p");
+
+        return !!p && /^\d{44}(?:\||$)/.test(p);
+      } catch (erro) {
+        return false;
+      }
+    }
+
+    // =====================================================
+    // 5. CÂMERA AO VIVO
+    // =====================================================
+
+    async function iniciarCamera() {
+      if (processando || cameraAtiva || cameraIniciando) return;
+
+      if (!senha) {
+        abrirSenha();
+        return;
+      }
+
+      if (!window.isSecureContext) {
+        mostrarStatus(
+          "A câmera exige HTTPS. Abra a página pelo endereço " +
+          "https:// do GitHub Pages.",
+          "erro"
+        );
+        return;
+      }
+
+      if (typeof Html5Qrcode === "undefined") {
+        mostrarStatus(
+          "A biblioteca de leitura do QR Code não carregou. " +
+          "Verifique a conexão com a internet e atualize a página.",
+          "erro"
+        );
+        return;
+      }
+
+      cameraIniciando = true;
+      leituraConcluida = false;
+      btnLer.disabled = true;
+
+      resultado.classList.add("oculto");
+      areaCamera.style.display = "block";
+
+      mostrarStatus(
+        "Abrindo a câmera traseira...",
+        "info",
+        true
+      );
+
+      try {
+        scanner = new Html5Qrcode("reader", {
+          formatsToSupport: [
+            Html5QrcodeSupportedFormats.QR_CODE
+          ],
+          useBarCodeDetectorIfSupported: true,
+          verbose: false
+        });
+
+        const config = {
+          fps: 12,
+          qrbox: function(largura, altura) {
+            const lado = Math.max(
+              150,
+              Math.min(300, Math.floor(Math.min(largura, altura) * .82))
+            );
+
+            return {
+              width: lado,
+              height: lado
+            };
+          },
+          disableFlip: true
+        };
+
+        await scanner.start(
+          { facingMode: "environment" },
+          config,
+          qrCodeLido,
+          function() {
+            // Não mostrar erro a cada frame sem QR Code.
+          }
+        );
+
+        cameraAtiva = true;
+
+        mostrarStatus(
+          "Câmera ligada. Centralize o QR Code dentro do quadrado " +
+          "e aproxime até ficar nítido.",
+          "info"
+        );
+
+      } catch (erro) {
+        console.error("Erro na câmera:", erro);
+
+        cameraAtiva = false;
+
+        mostrarStatus(
+          mensagemErroCamera(erro),
+          "erro"
+        );
+
+        await pararCamera();
+
+      } finally {
+        cameraIniciando = false;
+        btnLer.disabled = processando;
+      }
+    }
+
+    function mensagemErroCamera(erro) {
+      const nome = erro?.name || "";
+      const texto = String(erro?.message || erro || "");
+
+      if (/NotAllowedError|PermissionDenied/i.test(nome + texto)) {
+        return "Permissão da câmera negada. Libere a câmera nas " +
+               "configurações do navegador e tente novamente.";
+      }
+
+      if (/NotFoundError|DevicesNotFound/i.test(nome + texto)) {
+        return "Nenhuma câmera foi encontrada neste dispositivo.";
+      }
+
+      if (/NotReadableError|TrackStartError/i.test(nome + texto)) {
+        return "A câmera está ocupada por outro aplicativo. " +
+               "Feche o outro aplicativo e tente novamente.";
+      }
+
+      return "Não foi possível abrir a câmera. Verifique as " +
+             "permissões e tente novamente.";
+    }
+
+    async function pararCamera() {
+      const instancia = scanner;
+
+      cameraAtiva = false;
+      scanner = null;
+
+      if (instancia) {
+        try {
+          if (instancia.isScanning) {
+            await instancia.stop();
+          }
+        } catch (erro) {
+          console.warn("Falha ao parar câmera:", erro);
+        }
+
+        try {
+          instancia.clear();
+        } catch (erro) {
+          console.warn("Falha ao limpar leitor:", erro);
+        }
+      }
+
+      areaCamera.style.display = "none";
+      $("reader").replaceChildren();
+
+      btnLer.disabled = processando;
+    }
+
+    async function qrCodeLido(texto) {
+      if (leituraConcluida || processando) return;
+
+      leituraConcluida = true;
+
+      const link = texto.trim();
+
+      mostrarStatus("QR Code identificado!", "sucesso");
+
+      // Encerra a câmera antes de consultar a nota.
+      await pararCamera();
+
+      campoLink.value = link;
+
+      if (!validarLinkNota(link)) {
+        mostrarStatus(
+          "O QR Code foi lido, mas não contém um link de NFC-e " +
+          "da Fazenda de São Paulo. Verifique o código.",
+          "aviso"
+        );
+        return;
+      }
+
+      await lancarNota(link);
+    }
+
+    btnLer.addEventListener("click", iniciarCamera);
+
+    btnParar.addEventListener("click", async function() {
+      leituraConcluida = true;
+      await pararCamera();
+
+      mostrarStatus("Câmera desligada.", "info");
+    });
+
+    // =====================================================
+    // 6. COMUNICAÇÃO COM GOOGLE APPS SCRIPT
+    // =====================================================
+
+    async function enviarMotor(dados) {
+      if (!validarUrlMotor()) {
+        throw new Error(
+          "O endereço do Apps Script não foi configurado. " +
+          "Cole a URL da implantação /exec em URL_DO_MOTOR."
+        );
+      }
+
+      if (!senha) {
+        abrirSenha();
+        throw new Error("Informe a senha para continuar.");
+      }
+
+      const corpo = JSON.stringify({
+        senha: senha,
+        acao: dados.acao,
+        link: dados.link || "",
+        loja: dados.loja || "",
+        categoria: dados.categoria || ""
+      });
+
+      const controlador = new AbortController();
+      const limite = setTimeout(
+        () => controlador.abort(), 60000
+      );
+
+      let resposta;
+
+      try {
+        resposta = await fetch(URL_DO_MOTOR, {
+          method: "POST",
+          headers: {
+            "Content-Type": "text/plain;charset=utf-8"
+          },
+          body: corpo,
+          redirect: "follow",
+          signal: controlador.signal
+        });
+      } catch (erro) {
+        if (erro.name === "AbortError") {
+          throw new Error(
+            "A consulta demorou mais de 60 segundos. " +
+            "Não foi possível confirmar se a operação foi gravada. " +
+            "Verifique a planilha antes de tentar novamente."
+          );
+        }
+
+        throw new Error(
+          "Não foi possível receber a resposta do Apps Script. " +
+          "Pode ser um bloqueio de CORS ou uma falha de conexão. " +
+          "A operação pode ter chegado à planilha, portanto confira " +
+          "antes de tentar novamente."
+        );
+      } finally {
+        clearTimeout(limite);
+      }
+
+      if (!resposta.ok) {
+        throw new Error(
+          "O Apps Script respondeu com erro HTTP " +
+          resposta.status + ". Confira a implantação."
+        );
+      }
+
+      let dadosResposta;
+
+      try {
+        dadosResposta = await resposta.json();
+      } catch (erro) {
+        throw new Error(
+          "O Apps Script não retornou um JSON válido. " +
+          "Confira se a implantação está atualizada e acessível."
+        );
+      }
+
+      if (!dadosResposta ||
+          typeof dadosResposta !== "object") {
+        throw new Error(
+          "O Apps Script retornou uma resposta inválida."
+        );
+      }
+
+      if (dadosResposta.aviso === "Senha inválida") {
+        try {
+          localStorage.removeItem(CHAVE_SENHA);
+        } catch (erro) {}
+
+        senha = "";
+        abrirSenha();
+      }
+
+      return dadosResposta;
+    }
+
+    // =====================================================
+    // 7. LANÇAMENTO DE COMPRA
+    // =====================================================
+
+    async function lancarNota(link) {
+      if (processando) return;
+
+      if (!validarLinkNota(link)) {
+        mostrarStatus(
+          "O link não é uma NFC-e válida da Fazenda de SP. " +
+          "Copie o endereço completo do QR Code.",
+          "erro"
+        );
+        return;
+      }
+
+      await pararCamera();
+
+      resultado.classList.add("oculto");
+      definirProcessando(true);
+
+      mostrarStatus(
+        "Buscando a nota...",
+        "info",
+        true
+      );
+
+      try {
+        const resposta = await enviarMotor({
+          acao: "lancar",
+          link: link
+        });
+
+        const duplicada =
+          resposta.aviso === "Essa notinha já foi lançada";
+
+        if (resposta.ok || duplicada) {
+          exibirCompra(resposta);
+
+          mostrarStatus(
+            resposta.aviso ||
+              (duplicada
+                ? "Essa notinha já foi lançada"
+                : "Compra lançada com sucesso!"),
+            duplicada ? "aviso" : "sucesso"
+          );
+        } else {
+          mostrarStatus(
+            resposta.aviso ||
+              "Não foi possível lançar a compra.",
+            "erro"
+          );
+        }
+
+      } catch (erro) {
+        console.error("Erro ao lançar:", erro);
+
+        mostrarStatus(
+          erro.message || "Ocorreu um erro inesperado.",
+          "erro"
+        );
+
+      } finally {
+        definirProcessando(false);
+      }
+    }
+
+    $("formLink").addEventListener("submit", async function(e) {
+      e.preventDefault();
+
+      const link = campoLink.value.trim();
+
+      if (!link) {
+        mostrarStatus(
+          "Cole o link da notinha antes de lançar.",
+          "aviso"
+        );
+        campoLink.focus();
+        return;
+      }
+
+      await lancarNota(link);
+    });
+
+    // =====================================================
+    // 8. EXIBIÇÃO DA COMPRA
+    // =====================================================
+
+    function exibirCompra(nota) {
+      lojaAtual = String(nota.loja || "").trim();
+
+      $("nomeLoja").textContent = lojaAtual || "Loja não informada";
+      $("dataCompra").textContent =
+        "Data da compra: " + (nota.data || "Não informada");
+
+      $("totalCompra").textContent =
+        formatarDinheiro(nota.total);
+
+      categoriaAnterior = CATEGORIAS.includes(nota.categoria)
+        ? nota.categoria
+        : "Outros";
+
+      campoCategoria.value = categoriaAnterior;
+      campoCategoria.disabled = !lojaAtual;
+      $("statusCategoria").textContent = "";
+
+      listaItens.replaceChildren();
+
+      const itens = Array.isArray(nota.itens)
+        ? nota.itens
+        : [];
+
+      if (!itens.length) {
+        const vazio = document.createElement("p");
+        vazio.className = "dica";
+        vazio.textContent = "Nenhum produto retornado.";
+        listaItens.appendChild(vazio);
+      }
+
+      for (const item of itens) {
+        const linha = document.createElement("div");
+        linha.className = "item";
+
+        const ladoEsquerdo = document.createElement("div");
+
+        const descricao = document.createElement("div");
+        descricao.className = "item-descricao";
+        descricao.textContent = item.descricao || "Produto";
+
+        const detalhes = document.createElement("div");
+        detalhes.className = "item-detalhe";
+        detalhes.textContent =
+          formatarQuantidade(item.quantidade) +
+          " " + (item.unidade || "un") +
+          " × " + formatarDinheiro(item.precoUnitario);
+
+        ladoEsquerdo.append(descricao, detalhes);
+
+        const total = document.createElement("div");
+        total.className = "item-total";
+        total.textContent = formatarDinheiro(item.total);
+
+        linha.append(ladoEsquerdo, total);
+        listaItens.appendChild(linha);
+      }
+
+      resultado.classList.remove("oculto");
+    }
+
+    // =====================================================
+    // 9. ALTERAÇÃO DE CATEGORIA
+    // =====================================================
+
+    campoCategoria.addEventListener("change", async function() {
+      if (!lojaAtual || mudandoCategoria) return;
+
+      const novaCategoria = campoCategoria.value;
+
+      if (novaCategoria === categoriaAnterior) return;
+
+      mudandoCategoria = true;
+      campoCategoria.disabled = true;
+
+      $("statusCategoria").textContent =
+        "Salvando categoria...";
+
+      try {
+        const resposta = await enviarMotor({
+          acao: "categoria",
+          loja: lojaAtual,
+          categoria: novaCategoria
+        });
+
+        if (!resposta.ok) {
+          throw new Error(
+            resposta.aviso ||
+            "Não foi possível salvar a categoria."
+          );
+        }
+
+        categoriaAnterior = novaCategoria;
+
+        $("statusCategoria").textContent =
+          "✓ Categoria atualizada!";
+
+        mostrarStatus(
+          resposta.aviso || "Categoria salva com sucesso!",
+          "sucesso"
+        );
+
+      } catch (erro) {
+        campoCategoria.value = categoriaAnterior;
+
+        $("statusCategoria").textContent =
+          "Não foi possível confirmar a alteração.";
+
+        mostrarStatus(erro.message, "erro");
+
+      } finally {
+        mudandoCategoria = false;
+        campoCategoria.disabled = false;
+      }
+    });
+
+    // =====================================================
+    // 10. INICIALIZAÇÃO
+    // =====================================================
+
+    document.addEventListener("visibilitychange", function() {
+      if (document.hidden && cameraAtiva) {
+        leituraConcluida = true;
+        pararCamera();
+      }
+    });
+
+    window.addEventListener("pagehide", function() {
+      if (cameraAtiva) {
+        pararCamera();
+      }
+    });
+
+    iniciar();
+
+  </script>
+</body>
+</html>
